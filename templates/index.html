@@ -1,0 +1,699 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Vihara Tech | Profit Predictor</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #080d1b;
+            --panel: #111a2d;
+            --border: #26344e;
+            --blue: #60a5fa;
+            --violet: #a78bfa;
+            --text: #f1f5f9;
+            --muted: #94a3b8;
+        }
+
+        body {
+            min-height: 100vh;
+            padding: 35px 18px;
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(ellipse at 10% 0%, #182c55, transparent 38%),
+                radial-gradient(ellipse at 95% 100%, #28164a, transparent 35%),
+                var(--bg);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 35px;
+        }
+
+        .brand {
+            font-size: 23px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .brand span {
+            color: var(--blue);
+        }
+
+        .status {
+            color: #86efac;
+            font-size: 12px;
+            background: #102b27;
+            border: 1px solid #245c4c;
+            border-radius: 30px;
+            padding: 9px 13px;
+        }
+
+        .hero {
+            margin-bottom: 28px;
+        }
+
+        .eyebrow {
+            color: var(--blue);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-size: clamp(30px, 5vw, 47px);
+            line-height: 1.15;
+            letter-spacing: -1.8px;
+            margin-bottom: 13px;
+        }
+
+        h1 span {
+            background: linear-gradient(90deg, #60a5fa, #c4b5fd);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            color: var(--muted);
+            line-height: 1.8;
+            max-width: 650px;
+            font-size: 14px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin: 28px 0;
+        }
+
+        .stat {
+            background: rgba(17, 26, 45, 0.85);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 19px;
+        }
+
+        .stat-icon {
+            font-size: 22px;
+            margin-bottom: 13px;
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 15px;
+            margin-bottom: 6px;
+        }
+
+        .stat small {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .workspace {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 20px;
+            align-items: start;
+        }
+
+        .panel {
+            background: rgba(17, 26, 45, 0.96);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 27px;
+            box-shadow: 0 20px 55px rgba(0, 0, 0, 0.18);
+        }
+
+        .panel-heading {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            margin-bottom: 25px;
+        }
+
+        .heading-icon {
+            width: 43px;
+            height: 43px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            background: #1b3155;
+            font-size: 21px;
+        }
+
+        h2 {
+            font-size: 17px;
+            margin-bottom: 5px;
+        }
+
+        .subheading {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 9px;
+            color: #dbeafe;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 17px;
+            pointer-events: none;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 15px 14px 15px 45px;
+            background: #0b1324;
+            color: var(--text);
+            border: 1px solid #2b3a54;
+            border-radius: 11px;
+            outline: none;
+            font-family: inherit;
+            font-size: 13px;
+            transition: 0.25s;
+        }
+
+        input::placeholder {
+            color: #64748b;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px #60a5fa1c;
+        }
+
+        select option {
+            background: #111a2d;
+        }
+
+        .hint {
+            color: #7185a3;
+            font-size: 11px;
+            margin-top: 7px;
+        }
+
+        .predict-btn {
+            width: 100%;
+            margin-top: 5px;
+            padding: 16px;
+            border: none;
+            border-radius: 11px;
+            color: #07111f;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            background: linear-gradient(100deg, #60a5fa, #a78bfa);
+            transition: 0.25s;
+        }
+
+        .predict-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 9px 25px #60a5fa30;
+        }
+
+        .predict-btn:disabled {
+            cursor: wait;
+            opacity: 0.7;
+            transform: none;
+        }
+
+        .result-panel {
+            min-height: 255px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            background:
+                radial-gradient(circle at 50% 0%, #273b68, transparent 65%),
+                #111a2d;
+        }
+
+        .result-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 20px;
+            display: grid;
+            place-items: center;
+            border: 1px solid #405b8a;
+            background: #1a2d4c;
+            border-radius: 20px;
+            font-size: 28px;
+        }
+
+        .result-label {
+            color: var(--muted);
+            font-size: 12px;
+            letter-spacing: 1.5px;
+            margin-bottom: 13px;
+        }
+
+        .result-value {
+            font-size: clamp(25px, 4vw, 36px);
+            font-weight: 800;
+            overflow-wrap: anywhere;
+            background: linear-gradient(90deg, #93c5fd, #c4b5fd);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .result-note {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.8;
+            margin-top: 15px;
+        }
+
+        .info {
+            margin-top: 20px;
+        }
+
+        .info h3 {
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+
+        .info-item {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 18px;
+            align-items: flex-start;
+        }
+
+        .info-number {
+            color: var(--blue);
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .info-item strong {
+            font-size: 12px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .info-item p {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .error {
+            margin-top: 16px;
+            padding: 13px;
+            background: #391d2b;
+            border: 1px solid #713449;
+            color: #fda4af;
+            border-radius: 10px;
+            font-size: 12px;
+            line-height: 1.7;
+            overflow-wrap: anywhere;
+        }
+
+        .success-note {
+            color: #86efac;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        footer {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            border-top: 1px solid var(--border);
+            margin-top: 35px;
+            padding-top: 20px;
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        footer strong {
+            color: var(--blue);
+        }
+
+        @media (max-width: 760px) {
+            body {
+                padding: 25px 14px;
+            }
+
+            .workspace {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .stat {
+                display: flex;
+                align-items: center;
+                gap: 14px;
+            }
+
+            .stat-icon {
+                margin: 0;
+            }
+
+            .navbar {
+                align-items: flex-start;
+            }
+
+            .panel {
+                padding: 22px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .brand {
+                font-size: 19px;
+            }
+
+            .status {
+                font-size: 10px;
+                padding: 8px;
+            }
+
+            .panel {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <nav class="navbar">
+        <div class="brand">VIHARA <span>TECH.</span></div>
+        <div class="status">● ML PREDICTION SYSTEM</div>
+    </nav>
+
+    <header class="hero">
+        <div class="eyebrow">MACHINE LEARNING · DATA SCIENCE</div>
+
+        <h1>
+            Predict your business<br>
+            <span>profit potential.</span>
+        </h1>
+
+        <p>
+            Enter your investment details and let your Multiple Linear
+            Regression model estimate your expected business profit.
+        </p>
+    </header>
+
+    <section class="stats">
+        <div class="stat">
+            <div class="stat-icon">🧠</div>
+            <div>
+                <strong>Linear Regression</strong>
+                <small>Machine learning model</small>
+            </div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-icon">📊</div>
+            <div>
+                <strong>4 Input Features</strong>
+                <small>Investment and location data</small>
+            </div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-icon">⚡</div>
+            <div>
+                <strong>Instant Estimate</strong>
+                <small>Prediction from your trained model</small>
+            </div>
+        </div>
+    </section>
+
+    <main class="workspace">
+
+        <!-- INPUT FORM -->
+        <section class="panel">
+
+            <div class="panel-heading">
+                <div class="heading-icon">⌘</div>
+                <div>
+                    <h2>Business Information</h2>
+                    <div class="subheading">
+                        Enter your investment values
+                    </div>
+                </div>
+            </div>
+
+            <form action="/predict" method="post" id="prediction-form">
+
+                <div class="input-group">
+                    <label for="rnd">Research & Development Spend</label>
+
+                    <div class="input-wrapper">
+                        <span class="input-icon">🔬</span>
+                        <input
+                            type="number"
+                            id="rnd"
+                            name="rnd"
+                            step="any"
+                            placeholder="e.g. 165349.20"
+                            value="{{ form_values.get('rnd', '') if form_values else '' }}"
+                            required>
+                    </div>
+                    <p class="hint">Integer or decimal values accepted.</p>
+                </div>
+
+                <div class="input-group">
+                    <label for="admin">Administration Spend</label>
+
+                    <div class="input-wrapper">
+                        <span class="input-icon">🏢</span>
+                        <input
+                            type="number"
+                            id="admin"
+                            name="admin"
+                            step="any"
+                            placeholder="e.g. 136897.80"
+                            value="{{ form_values.get('admin', '') if form_values else '' }}"
+                            required>
+                    </div>
+                    <p class="hint">Integer or decimal values accepted.</p>
+                </div>
+
+                <div class="input-group">
+                    <label for="marketing">Marketing Spend</label>
+
+                    <div class="input-wrapper">
+                        <span class="input-icon">📈</span>
+                        <input
+                            type="number"
+                            id="marketing"
+                            name="marketing"
+                            step="any"
+                            placeholder="e.g. 471784.10"
+                            value="{{ form_values.get('marketing', '') if form_values else '' }}"
+                            required>
+                    </div>
+                    <p class="hint">Integer or decimal values accepted.</p>
+                </div>
+
+                <div class="input-group">
+                    <label for="state">Business Location</label>
+
+                    <div class="input-wrapper">
+                        <span class="input-icon">📍</span>
+
+                        <select id="state" name="state" required>
+                            <option value="" disabled
+                                {% if not form_values or not form_values.get('state') %}
+                                    selected
+                                {% endif %}>
+                                Select a state
+                            </option>
+
+                            <option value="0"
+                                {% if form_values and form_values.get('state') == '0' %}
+                                    selected
+                                {% endif %}>
+                                New York
+                            </option>
+
+                            <option value="1"
+                                {% if form_values and form_values.get('state') == '1' %}
+                                    selected
+                                {% endif %}>
+                                California
+                            </option>
+
+                            <option value="2"
+                                {% if form_values and form_values.get('state') == '2' %}
+                                    selected
+                                {% endif %}>
+                                Florida
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="predict-btn" id="predict-btn">
+                    Generate Profit Prediction →
+                </button>
+
+            </form>
+
+            {% if error_text %}
+                <div class="error">
+                    <strong>Prediction Error</strong><br>
+                    {{ error_text }}
+                </div>
+            {% endif %}
+
+        </section>
+
+        <!-- RESULT AND INFORMATION -->
+        <div>
+
+            <section class="panel result-panel">
+
+                <div class="result-icon">
+                    {% if prediction_text %}📈{% else %}✦{% endif %}
+                </div>
+
+                <div class="result-label">
+                    ESTIMATED BUSINESS PROFIT
+                </div>
+
+                {% if prediction_text %}
+
+                    <div class="result-value">
+                        ₹ {{ prediction_text }}
+                    </div>
+
+                    <p class="result-note">
+                        Your model-generated prediction is ready.<br>
+                        Actual business profit may differ.
+                    </p>
+
+                    <p class="success-note">
+                        ✓ Prediction completed
+                    </p>
+
+                {% else %}
+
+                    <div class="result-value">
+                        Ready to predict
+                    </div>
+
+                    <p class="result-note">
+                        Enter the investment details and select a state.<br>
+                        Your prediction will appear here.
+                    </p>
+
+                {% endif %}
+
+            </section>
+
+            <section class="panel info">
+
+                <h3>How does it work?</h3>
+
+                <div class="info-item">
+                    <div class="info-number">01</div>
+                    <div>
+                        <strong>Enter investment data</strong>
+                        <p>
+                            Provide R&D, administration and marketing expenses.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-number">02</div>
+                    <div>
+                        <strong>Run the ML model</strong>
+                        <p>
+                            Your trained regression model processes the inputs.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-number">03</div>
+                    <div>
+                        <strong>View the estimate</strong>
+                        <p>
+                            Your estimated profit appears in the result panel.
+                        </p>
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+    <footer>
+        <span>© 2026 <strong>Vihara Tech</strong> · ML Project</span>
+        <span>Designed for data-driven decisions</span>
+    </footer>
+
+</div>
+
+<script>
+    const form = document.getElementById("prediction-form");
+    const button = document.getElementById("predict-btn");
+
+    form.addEventListener("submit", function (event) {
+        if (!form.checkValidity()) {
+            return;
+        }
+
+        button.textContent = "Calculating prediction...";
+        button.disabled = true;
+    });
+</script>
+
+</body>
+</html>
